@@ -6,15 +6,24 @@ import { sidebarLinks } from "@/constants";
 import Link from "next/link";
 import LinkItem from "./LinkItem";
 import { Progress } from "../ui/progress";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import PopoverInner from "./PopoverInner";
 
 function Sidebar() {
   return (
     <aside className="h-[90vh] fixed w-72 top-[10vh] left-0 z-30 bg-[#F6F9FC] dark:bg-[#1F1F1F]">
       <div className="flex flex-col p-3">
-        <Button className="w-fit h-12 rounded-full px-6">
-          <Plus />
-          <span>New</span>
-        </Button>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button className="w-fit h-12 rounded-full px-6">
+              <Plus />
+              <span>New</span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="p-0 py-2">
+            <PopoverInner />
+          </PopoverContent>
+        </Popover>
 
         <div className="flex flex-col space-y-6 mt-8">
           {sidebarLinks.map((link) => (

@@ -4,7 +4,6 @@ import Link from "next/link";
 import ModeToggle from "./ModeToggle";
 import { Button } from "../ui/button";
 import { HelpCircle, Settings } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
 import UserBox from "./UserBox";
 
 function Navbar() {

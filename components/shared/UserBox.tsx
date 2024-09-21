@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -44,6 +45,7 @@ function UserBox() {
           </div>
         </div>
 
+        <DropdownMenuSeparator />
         <div>
           <Link href={"/settings"}>
             <DropdownMenuItem
