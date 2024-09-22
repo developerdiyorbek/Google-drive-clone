@@ -1,9 +1,12 @@
+"use client";
+
 import PopoverInner from "@/components/shared/PopoverInner";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useLayout } from "@/hooks/useLayout";
 import { ChevronDown, LayoutPanelTop, TableProperties } from "lucide-react";
 
 interface Props {
@@ -12,6 +15,7 @@ interface Props {
 }
 
 function PageHeader({ label, isHome }: Props) {
+  const { setLayout, layout } = useLayout();
   return (
     <div className="w-full flex items-center justify-between">
       {isHome ? (
@@ -32,18 +36,23 @@ function PageHeader({ label, isHome }: Props) {
 
       {isHome && (
         <div className="flex items-center space-x-2">
-          <div
-            role="button"
-            className="p-2 hover:bg-secondary rounded-full transition"
-          >
-            <TableProperties className="w-5 h-5" />
-          </div>
-          <div
-            role="button"
-            className="p-2 hover:bg-secondary rounded-full transition"
-          >
-            <LayoutPanelTop className="w-5 h-5" />
-          </div>
+          {layout === "list" ? (
+            <div
+              role="button"
+              onClick={() => setLayout("grid")}
+              className="p-2 hover:bg-secondary rounded-full transition"
+            >
+              <TableProperties className="w-5 h-5" />
+            </div>
+          ) : (
+            <div
+              role="button"
+              onClick={() => setLayout("list")}
+              className="p-2 hover:bg-secondary rounded-full transition"
+            >
+              <LayoutPanelTop className="w-5 h-5" />
+            </div>
+          )}
         </div>
       )}
     </div>
