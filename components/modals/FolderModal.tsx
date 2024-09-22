@@ -26,10 +26,12 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 function FolderModal() {
   const { isOpen, onClose } = useFolder();
   const { user } = useUser();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,6 +50,7 @@ function FolderModal() {
     }).then(() => {
       form.reset();
       onClose();
+      router.refresh();
     });
 
     toast.promise(promise, {
