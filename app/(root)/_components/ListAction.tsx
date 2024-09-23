@@ -16,7 +16,7 @@ import {
   Trash,
   UserPlus,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
 
@@ -27,11 +27,16 @@ interface Props {
 
 function ListAction({ item, onStartEditing }: Props) {
   const { refresh } = useRouter();
+  const { documentId } = useParams();
+
+  const folderId = documentId as string;
+  const type = item.size ? "files" : "folders";
+  const ref = documentId
+    ? doc(db, "folders", folderId, "files", item.id)
+    : doc(db, type, item.id);
 
   const onDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    const type = item.size ? "files" : "folders";
-    const ref = doc(db, type, item.id);
     const promise = setDoc(ref, {
       ...item,
       isArchive: true,

@@ -23,7 +23,7 @@ interface Props {
 function ListItem({ item }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(item.name);
-  const { refresh } = useRouter();
+  const { refresh, push } = useRouter();
   const { user } = useUser();
 
   const onStartEditing = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -51,7 +51,15 @@ function ListItem({ item }: Props) {
   };
 
   return (
-    <TableRow className="group cursor-pointer">
+    <TableRow
+      className="group cursor-pointer"
+      onClick={() => {
+        if (item.size) {
+          return null;
+        }
+        push(`/document/${item.id}`);
+      }}
+    >
       <TableCell className="font-medium">
         {isEditing ? (
           <div className="relative">
