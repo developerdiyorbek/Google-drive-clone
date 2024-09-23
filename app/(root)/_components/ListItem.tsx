@@ -8,7 +8,7 @@ import { File, Folder, Minus, Save, X } from "lucide-react";
 import { format } from "date-fns";
 import { byteConverter } from "@/lib/utils";
 import ListAction from "./ListAction";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,6 @@ interface Props {
 function ListItem({ item }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(item.name);
-  const inputRef = useRef(null);
   const { refresh } = useRouter();
   const { user } = useUser();
 
