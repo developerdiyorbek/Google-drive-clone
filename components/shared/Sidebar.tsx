@@ -1,17 +1,25 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import React from "react";
 import { Button } from "../ui/button";
-import { sidebarLinks } from "@/constants";
+import { Clock5, Cloud, Loader, Plus, Star, Tablet, Trash } from "lucide-react";
 import Link from "next/link";
-import LinkItem from "./LinkItem";
 import { Progress } from "../ui/progress";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { byteConverter } from "@/lib/utils";
+import { usePlan } from "@/hooks/usePlan";
+import { useSubscription } from "@/hooks/useSubscription";
 import PopoverInner from "./PopoverInner";
+import LinkItem from "./LinkItem";
 
-function Sidebar() {
+const Sidebar = () => {
+  const { onOpen } = usePlan();
+  const { subscription, isLoading, totalStorage } = useSubscription();
+
+  const totalValue = subscription === "Basic" ? 15_000_000 : 15_000_000_0;
+
   return (
-    <aside className="h-[90vh] fixed w-72 top-[10vh] left-0 z-30 bg-[#F6F9FC] dark:bg-[#1F1F1F]">
+    <div className="h-[90vh] w-60 fixed top-[10vh] left-0 z-30 bg-[#F6F9FC] dark:bg-[#1f1f1f]">
       <div className="flex flex-col p-3">
         <Popover>
           <PopoverTrigger asChild>
@@ -31,18 +39,62 @@ function Sidebar() {
               <LinkItem icon={link.icon} label={link.label} path={link.path} />
             </Link>
           ))}
-          <div className="flex flex-col space-y-2 mx-4">
-            <Progress className="h-2" value={30} />
-            <span>20MB of 1.5GB used</span>
 
-            <Button className="rounded-full" variant={"outline"}>
+          <div className="flex flex-col space-y-2 mx-4">
+            {isLoading ? (
+              <div className="w-full flex justify-center">
+                <Loader className="animate-spin text-muted-foreground w-4 h-4" />
+              </div>
+            ) : (
+              <>
+                <Progress className="h-2" value={totalStorage / totalValue} />
+                <span>
+                  {byteConverter(totalStorage, 1)} of{" "}
+                  {subscription === "Basic" ? "1.5 GB" : "15 GB"} used
+                </span>
+              </>
+            )}
+
+            <Button
+              className="rounded-full"
+              variant={"outline"}
+              onClick={onOpen}
+            >
               Get more storage
             </Button>
           </div>
         </div>
       </div>
-    </aside>
+    </div>
   );
-}
+};
 
 export default Sidebar;
+
+const sidebarLinks = [
+  {
+    label: "My drive",
+    icon: Tablet,
+    path: "/",
+  },
+  {
+    label: "Starred",
+    icon: Star,
+    path: "/starred",
+  },
+  {
+    label: "Recent",
+    icon: Clock5,
+    path: "/recent",
+  },
+  {
+    label: "Trash",
+    icon: Trash,
+    path: "/trash",
+  },
+  {
+    label: "Storage",
+    icon: Cloud,
+    path: "/cloud",
+  },
+];

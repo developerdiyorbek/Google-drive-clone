@@ -28,9 +28,11 @@ function Navbar() {
           <Button variant={"ghost"} size={"icon"}>
             <HelpCircle className="w-5 h-5" />
           </Button>
-          <Button variant={"ghost"} size={"icon"}>
-            <Settings className="w-5 h-5" />
-          </Button>
+          <Link href={"/settings"}>
+            <Button variant={"ghost"} size={"icon"}>
+              <Settings className="w-5 h-5" />
+            </Button>
+          </Link>
           {userId && <UserBox />}
         </div>
       </div>

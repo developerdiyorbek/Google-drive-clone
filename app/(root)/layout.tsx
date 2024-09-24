@@ -1,4 +1,5 @@
 import FolderModal from "@/components/modals/FolderModal";
+import PlanModal from "@/components/modals/PlanModal";
 import Navbar from "@/components/shared/Navbar";
 import Sidebar from "@/components/shared/Sidebar";
 import { ChildProps } from "@/types";
@@ -15,6 +16,7 @@ function Layout({ children }: ChildProps) {
       </main>
 
       <FolderModal />
+      <PlanModal />
     </>
   );
 }

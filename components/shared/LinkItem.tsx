@@ -15,7 +15,7 @@ function LinkItem({ icon: Icon, label, path }: ItemProps) {
   return (
     <div
       className={cn(
-        "flex items-center transition hover:bg-secondary rounded-full px-4 py-2 cursor-pointer",
+        "flex items-center transition hover:bg-secondary rounded-full px-4 py-2 cursor-pointer w-full",
         pathname === path && "bg-secondary"
       )}
     >

@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
+import SubscriptionProvider from "@/components/providers/SubscriptionProvider";
 
 const roboto = Roboto({
   subsets: ["latin", "cyrillic"],
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: ChildProps) {
             disableTransitionOnChange
             storageKey="google-drive"
           >
-            {children}
+            <SubscriptionProvider>{children}</SubscriptionProvider>
             <Toaster position="top-right" />
           </ThemeProvider>
         </body>

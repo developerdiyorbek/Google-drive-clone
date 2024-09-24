@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFolder } from "@/hooks/useFolder";
+import { useSubscription } from "@/hooks/useSubscription";
 
 const PopoverInner = () => {
   const inputRef = useRef<ElementRef<"input">>(null);
@@ -24,6 +25,7 @@ const PopoverInner = () => {
   const { user } = useUser();
   const router = useRouter();
   const { documentId } = useParams();
+  const { setTotalStorage, totalStorage } = useSubscription();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -81,6 +83,7 @@ const PopoverInner = () => {
             image: url,
           }).then(() => {
             router.refresh();
+            setTotalStorage(totalStorage + file.size);
           });
         });
       });
